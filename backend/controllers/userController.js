@@ -16,6 +16,7 @@ exports.getAllUsers = async (req, res) => {
 
 // Create a user
 exports.createUser = async (req, res) => {
+    console.log(req.body);
     try {
         const { username, email, password, age } = req.body;
 
@@ -23,6 +24,14 @@ exports.createUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         // const hashedPassword = await bcrypt.hash(password, 10);
+
+        // console.log({
+        //     username,
+        //     email,
+        //     password: hashedPassword,
+        //     age,
+        // });
+        
 
         const newUser = new UserModel({
             username,
@@ -79,3 +88,7 @@ exports.logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logged out successfully' });
    
 };
+
+exports.show = (req, res) => {
+    console.log(req.params.id);
+}
